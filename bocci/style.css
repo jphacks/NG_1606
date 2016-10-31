@@ -1,0 +1,115 @@
+*{
+  box-sizing: border-box;
+}
+body{
+  color: #333;
+  padding: 20px;
+  padding-top: 30px;
+  background: url("images/background.png");
+  font-family: Quicksand, 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+}
+
+h1{
+  text-align: center;
+  line-height: 50px;
+}
+#shugo-note{
+}
+#venue-spot{
+  color: #fff;
+  font-size: 30px;
+  letter-spacing: 0.2em;
+}
+
+.nameData{
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nameData li{
+  border-bottom: 1px solid #777;
+  padding: 30px 0 0 72px;
+  height: 80px;
+  background-size: 65px !important;
+  font-size: 17px;
+  font-weight: bold;
+  position: relative;
+}
+.nameData li .dates{
+  position: absolute;
+  display: block;
+  right: 0px;
+  top: 30px;
+  font-size: 70%;
+  opacity: 0.5;
+}
+.nameData li:last-child{
+  border-bottom: 0px;
+}
+.nameData li:nth-child(6n-5){
+  background: url("images/05_icon1.png") left center no-repeat;
+}
+.nameData li:nth-child(6n-4){
+  background: url("images/05_icon2.png") left center no-repeat;
+}
+.nameData li:nth-child(6n-3){
+  background: url("images/05_icon3.png") left center no-repeat;
+}
+.nameData li:nth-child(6n-2){
+  background: url("images/05_icon4.png") left center no-repeat;
+}
+.nameData li:nth-child(6n-1){
+  background: url("images/05_icon5.png") left center no-repeat;
+}
+.nameData li:nth-child(6n-0){
+  background: url("images/05_icon6.png") left center no-repeat;
+}
+
+
+#close-btn{
+  padding: 0;
+  height: 0px;
+  overflow: hidden;
+  padding-top: 62px;
+  background: url("images/05_simekiri.png") no-repeat center center;
+  background-size: 191px;
+  display: block;
+  width: 100%;
+  border: none;
+}
+#close-btn[disabled="disabled"]{
+  background-image: url("images/05_simekitta.png");
+}
+
+.input-large{
+  display: block;
+  width: 245px;
+  height: 45px;
+  background: none;
+  margin: 30px auto;
+  padding: 10px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+select{
+  display: block;
+  margin: 10px auto;
+  font-size: 30px;
+  background: none;
+}
+#update_venue-btn{
+  padding: 0;
+  height: 0px;
+  overflow: hidden;
+  padding-top: 62px;
+  background: url("images/02_next.png") no-repeat center center;
+  cursor: pointer;
+  background-size: 191px;
+  display: block;
+  width: 100%;
+  border: none;
+}
+
