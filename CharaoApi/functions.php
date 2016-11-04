@@ -12,9 +12,10 @@ function create_post_type(){
     ),
     'public' => true,
     'menu_position' => 5,
+    'show_in_rest' => 'true'
   ));
   register_taxonomy(
-    'lebel', 'task', array(
+    'level', 'task', array(
       'hierarchical' => false,
       'update_count_callback' => '_update_post_term_count',
       'label' => 'レベル',

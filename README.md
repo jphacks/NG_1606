@@ -9,6 +9,10 @@ CharaoApi
 
 Wordpress 4.6.1
 
+## プラグインリスト
+
+- [Really Simple CSV Importer](https://wordpress.org/plugins/really-simple-csv-importer/)
+
 ## TODO
 
 ### LEVEL 1: 必要最低限のシステム実装
@@ -26,3 +30,5 @@ Wordpress 4.6.1
 ### LEVEL 3: タスク管理機能の実装
 
 ### LEVEL 4: クーポン表示機能の実装
+
+### LEVEL 5: 統計機能の実装
