@@ -4,20 +4,21 @@
 add_action('init', 'create_post_type');
 
 function create_post_type(){
-  register_post_type('tickets', array(
+  // タスクプール (task)
+  register_post_type('task', array(
     'labels' => array(
-      'name' => __('チケット'),
-      'singular_name' => __('チケット')
+      'name' => __('タスクプール'),
+      'singular_name' => __('タスクプール')
     ),
     'public' => true,
     'menu_position' => 5,
   ));
   register_taxonomy(
-    'venue', 'tickets', array(
+    'lebel', 'task', array(
       'hierarchical' => false,
       'update_count_callback' => '_update_post_term_count',
-      'label' => '場所',
-      'singular_label' => '場所',
+      'label' => 'レベル',
+      'singular_label' => 'レベル',
       'public' => true,
       'show_ui' => true
     )
