@@ -17,6 +17,7 @@ get_header(); ?>
   </div>
 </div>
 <script>
+  var checked_str = "";
   // マイタスクをロード
   function load_task_list(list){
     list.empty();
@@ -24,22 +25,34 @@ get_header(); ?>
     $.ajax({type: 'GET', url: path, dataType: 'json'}).done(function(json, textStatus, request){
       page_amount = request.getResponseHeader('X-WP-TotalPages');
       page_amount = +page_amount; // キャスト
-      for(var p = 1; p < page_amount + 1; p++){
+      for(var p = 1; p < 2; p++){
         $.getJSON(path + "&page=" + p, function(data){
           if(data.length == 0){
-            console.log("break");
             return;
           }
-          for(var i in data){
+          for(var i = 0; i < data.length; i++){
+            task_state = data[i].content.rendered.replace(/(<([^>]+)>)/ig,"").replace(/\s+/g, "");
+            checked_str = "false";
+            if(task_state.match(/done/)){
+              checked_str = "true"
+            }
+            list.append('<li data-my_task_id="' + data[i].id + '" data-task_checked="' + checked_str + '" data-task_id="' + data[i].title.rendered + '"></li>');
+
+            // ID を用いてタスクプールから検索
             $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task/" + data[i].title.rendered + "?_embed", function(item){
-              console.log(item);
+              // サムネイルの取得
               $(item._embedded['wp:featuredmedia']).each(function(index, element){
                 media_url = element.source_url;
               });
-              list.append(
-                '<li><img src="' + media_url + '" width="50"><br>' + 
+              var is_checked = ""
+              if($('li[data-task_id="' + item.id + '"]').data('task_checked')){
+                is_checked = "checked";
+              }
+              $('li[data-task_id="' + item.id + '"]').append(
+                '<img src="' + media_url + '" width="50"><br>' + 
+                '<input type="checkbox" data-task_id="' + item.id + '" class="checkbox" onclick="check_my_task($(this))"' + is_checked + '> ' +  
                 item.title.rendered + ' ' + 
-                '</li>'
+                ''
               );
             });
           }
@@ -85,8 +98,9 @@ get_header(); ?>
       },
       data:{
         'title': item.data('task_id'),
-        'content': item.data('post_content'), 
+        'content': 'doing', 
         'status': 'publish',
+        'is_done': 'false',
         'fields[task_id]': item.data('task_id')
       }
     }).done( function ( response ) {
@@ -102,6 +116,39 @@ get_header(); ?>
     item.parent('li').remove();
   }
 
+  // やった関数
+  function check_my_task(item){
+    var my_task_id = item.parent('li').data('my_task_id');
+    if(item.is(':checked')){
+      // checked
+      $.ajax( {
+        url: wpApiSettings.root + 'wp/v2/my_task/' + my_task_id,
+        method: 'POST',
+        beforeSend: function ( xhr ) {
+          xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
+        },
+        data:{
+          'content': 'done', 
+        }
+      }).done( function ( response ) {
+        console.log( response );
+      });
+    }else{
+      // unchecked
+      $.ajax( {
+        url: wpApiSettings.root + 'wp/v2/my_task/' + my_task_id,
+        method: 'POST',
+        beforeSend: function ( xhr ) {
+          xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
+        },
+        data:{
+          'content': 'doing', 
+        }
+      }).done( function ( response ) {
+        console.log( response );
+      });
+    }
+  }
 
   // アクションフック
   $(document).ready(function(){

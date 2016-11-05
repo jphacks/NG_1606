@@ -12,7 +12,7 @@ function create_post_type(){
     ),
     'public' => true,
     'menu_position' => 5,
-    'show_in_rest' => 'true'
+    'show_in_rest' => true
   ));
   // マイタスク (my_task)
   register_post_type('my_task', array(
@@ -22,7 +22,7 @@ function create_post_type(){
     ),
     'public' => true,
     'menu_position' => 6,
-    'show_in_rest' => 'true'
+    'show_in_rest' => true
   ));
 
   // タスクレベル
@@ -33,7 +33,8 @@ function create_post_type(){
       'label' => 'タスクレベル',
       'singular_label' => 'タスクレベル',
       'public' => true,
-      'show_ui' => true
+      'show_ui' => true,
+      'show_in_rest' => true
     )
   );
   // 終わった
@@ -45,7 +46,8 @@ function create_post_type(){
       'label' => '終わった',
       'singular_label' => '終わった',
       'public' => true,
-      'show_ui' => true
+      'show_ui' => true,
+      'show_in_rest' => true
     )
   );
 }
@@ -93,4 +95,6 @@ function save_custom_postdata($post_id){
  	// 	delete_post_meta($post_id, 'keijo',get_post_meta($post_id,'keijo',true));
  	// }
 }
+
 ?>
+
