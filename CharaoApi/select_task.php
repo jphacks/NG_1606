@@ -1,46 +1,83 @@
 <?php /* Template Name: select_task */
 get_header(); ?>
-<div class="row">
-  <div class="col-sm-1">
-    <h1>O.C.</h1>
-    <p>
-      <a href="javascript:void(0)" class="btn btn-default btn-reload-task">タスクを更新</a>
-    </p>
+<div class="select-task-page">
+  <div class="title-part">
+    <h1 class="app-title">CharaoApi</h1>
   </div>
-  <div class="col-sm-7 col-sm-offset-1">  
-    <ul id="task-pool">
-    </ul>
-  </div>
-  <div class="col-sm-3">
-    <ul id="task-list">
-    </ul>
+  <!--
+  <p>
+    <a href="javascript:void(0)" class="btn btn-default btn-reload-task">タスクプールを更新</a>
+  </p>
+  -->
+  <ul id="task-pool"></ul>
+  <div style="clear: both; width: 1px; height: 1px;"></div>
+  <div class="task-list-box">
+    <ul id="task-list"></ul>
   </div>
 </div>
+
 <script>
-  $(function(){
-    console.log("jQuery move");
-  });
-  
-  // タスクをロード
-  function load_tasks(pool){
+  var checked_str = "";
+  // マイタスクをロード
+  function load_task_list(list){
+    list.empty();
+    path = "<?php echo home_url('');?>" + '/wp-json/wp/v2/my_task?_embed';
+    $.ajax({type: 'GET', url: path, dataType: 'json'}).done(function(json, textStatus, request){
+      page_amount = request.getResponseHeader('X-WP-TotalPages');
+      page_amount = +page_amount; // キャスト
+      for(var p = 1; p < 2; p++){
+        $.getJSON(path + "&page=" + p, function(data){
+          if(data.length == 0){
+            return;
+          }
+          for(var i = 0; i < data.length; i++){
+            task_state = data[i].content.rendered.replace(/(<([^>]+)>)/ig,"").replace(/\s+/g, "");
+            checked_str = "false";
+            if(task_state.match(/done/)){
+              checked_str = "true"
+            }
+            list.append('<li data-my_task_id="' + data[i].id + '" data-task_checked="' + checked_str + '" data-task_id="' + data[i].title.rendered + '"></li>');
+
+            // ID を用いてタスクプールから検索
+            $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task/" + data[i].title.rendered + "?_embed", function(item){
+              // サムネイルの取得
+              $(item._embedded['wp:featuredmedia']).each(function(index, element){
+                media_url = element.source_url;
+              });
+              var is_checked = ""
+              if($('li[data-task_id="' + item.id + '"]').data('task_checked')){
+                is_checked = "checked";
+              }
+              $('li[data-task_id="' + item.id + '"]').append(
+                '<img src="' + media_url + '" width="50"><br>' + 
+                '<input type="checkbox" data-task_id="' + item.id + '" class="checkbox" onclick="check_my_task($(this))"' + is_checked + '> ' +  
+                '<div class="image-title">' + item.title.rendered + '</div>' +
+                ''
+              );
+            });
+          }
+        });
+      }
+    });
+  }
+
+  // タスクプールをロード
+  function load_task_pool(pool){
     $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task?filter[orderby]=rand&_embed&filter[nopaging]=true", function(data){
-      console.log(data);
       pool.empty();
       for(var i in data){
         $(data[i]._embedded['wp:featuredmedia']).each(function(index, element){
           media_url = element.source_url;
         });
         pool.append(
-          '<li><img src="' + media_url + '" width="100"> ' + 
-          data[i].title.rendered + ' ' + 
-          '<a href="javascript:void(0)" class="btn btn-success btn-doing-task" onclick="add_my_task($(this));"' + 
-          'data-post_title="' + data[i].title.rendered + '" ' + 
-          'data-task_id="' + data[i].id + '" ' + 
-          'data-post_content="' + data[i].content.rendered + '">やる</a> ' + 
-          '<a href="javascript:void(0)" class="btn btn-danger btn-wont-task" onclick="remove_my_task($(this));">やらない</a> ' + 
-          '</li>'
+          '<li><a href="javascript:void(0)" class="btn btn-success btn-doing-task" onclick="add_my_task($(this));"' +
+          'data-post_title="' + data[i].title.rendered + '" ' +
+          'data-task_id="' + data[i].id + '" ' +
+          'data-post_content="' + data[i].content.rendered + '">やる</a> ' +
+          '<a href="javascript:void(0)" class="btn btn-danger btn-wont-task" onclick="remove_my_task($(this));">やらない</a> ' + '<div class="task-part text-center"><img src=' + media_url + ' width="100">' + '<div class="image-title">' +
+          '<p>' + data[i].title.rendered + '</p>' + '</div>' + ' ' + '</div>' + '</li>'
         );
-        
+
       }
     });
   }
@@ -59,13 +96,15 @@ get_header(); ?>
       },
       data:{
         'title': item.data('task_id'),
-        'content': item.data('post_content'), 
+        'content': 'doing', 
         'status': 'publish',
+        'is_done': 'false',
         'fields[task_id]': item.data('task_id')
       }
     }).done( function ( response ) {
-      item.parent().append(' <span class="text-success">タスクに登録しました</span>') 
+      item.parent().append(' <span class="text-success">タスクに登録しました</span>')
       item.parent('li').remove();
+      load_task_list($('#task-list'));
       console.log( response );
     });
   }
@@ -75,20 +114,54 @@ get_header(); ?>
     item.parent('li').remove();
   }
 
+  // やった関数
+  function check_my_task(item){
+    var my_task_id = item.parent('li').data('my_task_id');
+    if(item.is(':checked')){
+      // checked
+      $.ajax( {
+        url: wpApiSettings.root + 'wp/v2/my_task/' + my_task_id,
+        method: 'POST',
+        beforeSend: function ( xhr ) {
+          xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
+        },
+        data:{
+          'content': 'done', 
+        }
+      }).done( function ( response ) {
+        console.log( response );
+      });
+    }else{
+      // unchecked
+      $.ajax( {
+        url: wpApiSettings.root + 'wp/v2/my_task/' + my_task_id,
+        method: 'POST',
+        beforeSend: function ( xhr ) {
+          xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
+        },
+        data:{
+          'content': 'doing', 
+        }
+      }).done( function ( response ) {
+        console.log( response );
+      });
+    }
+  }
 
   // アクションフック
   $(document).ready(function(){
-    load_tasks($('#task-pool'));
+    load_task_pool($('#task-pool'));
+    load_task_list($('#task-list'));
   });
   $('.btn-reload-task').click(function(){
-    load_tasks($('#task-pool'));
+    load_task_pool($('#task-pool'));
   });
   $('.btn-doing-task').click(function(){
     console.log("item: ");
 
     add_my_task(this);
   });
-  
+
 </script>
 
 <?php get_footer(); ?>
