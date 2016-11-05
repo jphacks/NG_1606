@@ -164,3 +164,6 @@ a:hover {
 .select-task-page #task-list .image-title {
   display: none;
 }
+ #task-list input[type="checkbox"]{
+  display: none;
+}
