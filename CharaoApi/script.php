@@ -19,8 +19,9 @@ function load_task_table(table){
           if(task_state.match(/done/)){
             checked_str = "true"
           }
-          // li を append
+          // tr を append
           table.append('<tr data-my_task_id="' + data[i].id + '" data-task_checked="' + checked_str + '" data-task_id="' + data[i].title.rendered + '"></tr>');
+          $('tr[data-task_checked="true"]').css("display", "none");
 
           // ID を用いてタスクプールから検索
           $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task/" + data[i].title.rendered + "?_embed", function(item){
@@ -32,7 +33,7 @@ function load_task_table(table){
             if($('tr[data-task_id="' + item.id + '"]').data('task_checked')){
               is_checked = "checked";
             }
-            // li の中身を append
+            // td の中身を append
             $('tr[data-task_id="' + item.id + '"]').append(
               '<td><img src="' + media_url + '" width="50"></td>' + 
               '<td class="image-title">' + item.title.rendered + '</td>' +
@@ -123,14 +124,12 @@ function add_my_task(item){
     },
     data:{
       'title': item.data('task_id'),
-      'content': 'doing', 
-      'status': 'publish',
-      'is_done': 'false',
-      'fields[task_id]': item.data('task_id')
+      'content': 'will', 
+      'status': 'publish'
     }
   }).done( function ( response ) {
     item.parent().append(' <span class="text-success">タスクに登録しました</span>')
-    item.parent('li').remove();
+    item.parents('li').remove();
     load_task_list($('#task-list'));
     console.log( response );
   });

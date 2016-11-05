@@ -28,13 +28,11 @@ function hide_done_task(){
 }
 function show_done_task(){
   $('*[data-task_checked="true"]').show();
-  load_task_table($('#task-table'));
 }
 
 // アクションフック
 $(document).ready(function(){
   load_task_table($('#task-table'));
-  hide_done_task();
 });
 </script>
 
