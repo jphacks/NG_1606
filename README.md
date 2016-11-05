@@ -12,6 +12,7 @@ Wordpress 4.6.1
 ## プラグインリスト
 
 - [Really Simple CSV Importer](https://wordpress.org/plugins/really-simple-csv-importer/)
+- [WP REST API](https://wordpress.org/plugins/rest-api/)
 
 ## TODO
 
@@ -19,8 +20,8 @@ Wordpress 4.6.1
 
 - [ ] task (タスクプール) モデルを作成
   - [x] テストデータの登録
-- [ ] myTask (自分のタスク) モデルを作成
-- [ ] task を8個ランダムで表示させる
+- [x] myTask (自分のタスク) モデルを作成
+- [x] task を8個ランダムで表示させる
 - [ ] task 選択機能を作成
 - [ ] myTask 登録機能の実装
 - [ ] 
