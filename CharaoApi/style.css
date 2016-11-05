@@ -1,10 +1,169 @@
-*{
+* {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-body{
+
+body {
   color: #333;
-  padding: 20px;
-  padding-top: 30px;
   font-family: Quicksand, 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 }
 
+a {
+  text-decoration: none !important;
+  color: #000 !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+.login-page {
+  height: 100%;
+  width: 100%;
+  background-image: url("background-image1.jpg");
+  background-size: cover;
+  background-position: 710px 0;
+}
+
+.image-cover{
+  height: 100%;
+  width: 100%;
+  background-color: rgba(245, 125, 139, 0.5);
+}
+
+.title-part {
+  margin: 0;
+  padding: 0;
+}
+
+.title-part h1 {
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+}
+
+.title-part .sub-title{
+  font-size: 24px;
+}
+
+.title-part .app-title{
+  padding-top: 10px;
+  font-size: 43px;
+}
+
+.login-form-part {
+  width: 350px;
+  padding: 20px 0 50px;
+  margin: 0 auto;
+}
+
+.login-form-part div {
+  width: 85%;
+  padding: 8px;
+  margin: 8px auto;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.login-form-part div:hover{
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.bottom-part {
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  font-size: 17px;
+}
+
+.select-task-page .title-part {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(245, 125, 139);
+}
+
+.select-task-page .title-part .app-title {
+  margin: 0;
+  padding: 5px 0 5px 20px;
+  color: #ffffff;
+  font-size: 30px;
+}
+
+.select-task-page #task-pool ul {
+  margin: 0;
+  padding: 0;
+}
+
+.select-task-page #task-pool li {
+  width: 100%;
+  display: hidden;
+  margin: 0 auto;
+  display: none;
+}
+
+.select-task-page #task-pool li:first-child {
+  display: block;
+}
+
+.select-task-page #task-pool li .task-part {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.select-task-page #task-pool li .task-part img {
+  width: 100%;
+}
+
+.select-task-page #task-pool li .btn-doing-task {
+  float: right;
+  width: 82px;
+}
+
+.select-task-page #task-pool li .btn-wont-task {
+  float: left;
+}
+
+.select-task-page #task-pool li .btn{
+  margin: 0px;
+}
+
+.select-task-page .task-part .image-title {
+  background-color: rgb(245, 125, 139);
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+
+.select-task-page .task-part .image-title p {
+  margin: 0 0 30px;
+  padding: 8px 0;
+}
+
+.select-task-page .task-list-box {
+  width: 400px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.select-task-page #task-list li {
+  display: inline-block;
+}
+
+.select-task-page #task-list img {
+  width: 80px;
+  height: 80px;
+  margin: 5 10px;
+  padding: 0
+}
+
+.select-task-page #task-list .image-title {
+  display: none;
+}
+ #task-list input[type="checkbox"]{
+  display: none;
+}

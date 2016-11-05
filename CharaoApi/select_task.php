@@ -1,21 +1,21 @@
 <?php /* Template Name: select_task */
 get_header(); ?>
-<div class="row">
-  <div class="col-sm-1">
-    <h1>O.C.</h1>
-    <p>
-      <a href="javascript:void(0)" class="btn btn-default btn-reload-task">タスクプールを更新</a>
-    </p>
+<div class="select-task-page">
+  <div class="title-part">
+    <h1 class="app-title">CharaoApi</h1>
   </div>
-  <div class="col-sm-7 col-sm-offset-1">  
-    <ul id="task-pool">
-    </ul>
-  </div>
-  <div class="col-sm-3">
-    <ul id="task-list">
-    </ul>
+  <!--
+  <p>
+    <a href="javascript:void(0)" class="btn btn-default btn-reload-task">タスクプールを更新</a>
+  </p>
+  -->
+  <ul id="task-pool"></ul>
+  <div style="clear: both; width: 1px; height: 1px;"></div>
+  <div class="task-list-box">
+    <ul id="task-list"></ul>
   </div>
 </div>
+
 <script>
   var checked_str = "";
   // マイタスクをロード
@@ -51,7 +51,7 @@ get_header(); ?>
               $('li[data-task_id="' + item.id + '"]').append(
                 '<img src="' + media_url + '" width="50"><br>' + 
                 '<input type="checkbox" data-task_id="' + item.id + '" class="checkbox" onclick="check_my_task($(this))"' + is_checked + '> ' +  
-                item.title.rendered + ' ' + 
+                '<div class="image-title">' + item.title.rendered + '</div>' +
                 ''
               );
             });
@@ -70,16 +70,14 @@ get_header(); ?>
           media_url = element.source_url;
         });
         pool.append(
-          '<li><img src="' + media_url + '" width="100"> ' + 
-          data[i].title.rendered + ' ' + 
-          '<a href="javascript:void(0)" class="btn btn-success btn-doing-task" onclick="add_my_task($(this));"' + 
-          'data-post_title="' + data[i].title.rendered + '" ' + 
-          'data-task_id="' + data[i].id + '" ' + 
-          'data-post_content="' + data[i].content.rendered + '">やる</a> ' + 
-          '<a href="javascript:void(0)" class="btn btn-danger btn-wont-task" onclick="remove_my_task($(this));">やらない</a> ' + 
-          '</li>'
+          '<li><a href="javascript:void(0)" class="btn btn-success btn-doing-task" onclick="add_my_task($(this));"' +
+          'data-post_title="' + data[i].title.rendered + '" ' +
+          'data-task_id="' + data[i].id + '" ' +
+          'data-post_content="' + data[i].content.rendered + '">やる</a> ' +
+          '<a href="javascript:void(0)" class="btn btn-danger btn-wont-task" onclick="remove_my_task($(this));">やらない</a> ' + '<div class="task-part text-center"><img src=' + media_url + ' width="100">' + '<div class="image-title">' +
+          '<p>' + data[i].title.rendered + '</p>' + '</div>' + ' ' + '</div>' + '</li>'
         );
-        
+
       }
     });
   }
@@ -104,7 +102,7 @@ get_header(); ?>
         'fields[task_id]': item.data('task_id')
       }
     }).done( function ( response ) {
-      item.parent().append(' <span class="text-success">タスクに登録しました</span>') 
+      item.parent().append(' <span class="text-success">タスクに登録しました</span>')
       item.parent('li').remove();
       load_task_list($('#task-list'));
       console.log( response );
@@ -163,7 +161,7 @@ get_header(); ?>
 
     add_my_task(this);
   });
-  
+
 </script>
 
 <?php get_footer(); ?>

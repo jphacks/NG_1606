@@ -13,6 +13,7 @@ Wordpress 4.6.1
 
 - [Really Simple CSV Importer](https://wordpress.org/plugins/really-simple-csv-importer/)
 - [WP REST API](https://wordpress.org/plugins/rest-api/)
+- [Theme My Login](http://design-plus1.com/tcd-w/2012/11/theme_my_login.html)
 
 ## TODO
 
