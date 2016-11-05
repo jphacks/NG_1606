@@ -17,15 +17,16 @@ get_header(); ?>
       console.log(data);
       $('#task-list').empty();
       for(var i in data){
-        console.log(data[i].title.rendered);
         $(data[i]._embedded['wp:featuredmedia']).each(function(index, element){
           media_url = element.source_url;
         });
-        console.log(media_url);
         $('#task-list').append(
           '<li><img src="' + media_url + '" width="100"> ' + 
           data[i].title.rendered + ' ' + 
-          '<a href="javascript:void(0)" class="btn btn-success btn-doing-task">やる</a> ' + 
+          '<a href="javascript:void(0)" class="btn btn-success btn-doing-task" onclick="add_my_task($(this));"' + 
+          'data-post_title="' + data[i].title.rendered + '" ' + 
+          'data-task_id="' + data[i].id + '" ' + 
+          'data-post_content="' + data[i].content.rendered + '">やる</a> ' + 
           '<a href="javascript:void(0)" class="btn btn-danger btn-wont-task">やらない</a> ' + 
           '</li>'
         );
@@ -34,11 +35,41 @@ get_header(); ?>
     });
   }
 
+  // やる関数
+  var wpApiSettings = {"root":"<?=esc_url_raw( rest_url())?>","nonce":"<?=wp_create_nonce( 'wp_rest' )?>"};
+  function add_my_task(item){
+    console.log(item.data('post_title'));
+    console.log(item.data('post_content'));
+    item.attr('disabled', 'disabled');
+    $.ajax( {
+      url: wpApiSettings.root + 'wp/v2/my_task/',
+      method: 'POST',
+      beforeSend: function ( xhr ) {
+        xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
+      },
+      data:{
+        'title': item.data('post_title'),
+        'content': item.data('post_content'), 
+        'status': 'publish',
+        'fields[task_id]': item.data('task_id')
+      }
+    }).done( function ( response ) {
+      item.parent().append(' <span class="text-success">タスクに登録しました</span>') 
+      console.log( response );
+    });
+  }
+
+  // アクションフック
   $(document).ready(function(){
     load_tasks();
   });
   $('.btn-reload-task').click(function(){
     load_tasks();
+  });
+  $('.btn-doing-task').click(function(){
+    console.log("item: ");
+
+    add_my_task(this);
   });
   
 </script>
