@@ -27,10 +27,10 @@ get_header(); ?>
           'data-post_title="' + data[i].title.rendered + '" ' + 
           'data-task_id="' + data[i].id + '" ' + 
           'data-post_content="' + data[i].content.rendered + '">やる</a> ' + 
-          '<a href="javascript:void(0)" class="btn btn-danger btn-wont-task">やらない</a> ' + 
+          '<a href="javascript:void(0)" class="btn btn-danger btn-wont-task" onclick="remove_my_task($(this));">やらない</a> ' + 
           '</li>'
         );
-
+        
       }
     });
   }
@@ -48,16 +48,23 @@ get_header(); ?>
         xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
       },
       data:{
-        'title': item.data('post_title'),
+        'title': item.data('task_id'),
         'content': item.data('post_content'), 
         'status': 'publish',
         'fields[task_id]': item.data('task_id')
       }
     }).done( function ( response ) {
       item.parent().append(' <span class="text-success">タスクに登録しました</span>') 
+      item.parent('li').remove();
       console.log( response );
     });
   }
+  // やらない関数
+  function remove_my_task(item){
+    item.attr('disabled', 'disabled');
+    item.parent('li').remove();
+  }
+
 
   // アクションフック
   $(document).ready(function(){
