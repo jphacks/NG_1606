@@ -4,7 +4,7 @@ get_header(); ?>
   <div class="col-sm-1">
     <h1>O.C.</h1>
     <p>
-      <a href="javascript:void(0)" class="btn btn-default btn-reload-task">タスクを更新</a>
+      <a href="javascript:void(0)" class="btn btn-default btn-reload-task">タスクプールを更新</a>
     </p>
   </div>
   <div class="col-sm-7 col-sm-offset-1">  
@@ -26,17 +26,22 @@ get_header(); ?>
       page_amount = +page_amount; // キャスト
       for(var p = 1; p < page_amount + 1; p++){
         $.getJSON(path + "&page=" + p, function(data){
-          console.log(data);
           if(data.length == 0){
             console.log("break");
             return;
           }
           for(var i in data){
-            list.append(
-              '<li> ' + 
-              data[i].title.rendered + ' ' + 
-              '</li>'
-            );
+            $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task/" + data[i].title.rendered + "?_embed", function(item){
+              console.log(item);
+              $(item._embedded['wp:featuredmedia']).each(function(index, element){
+                media_url = element.source_url;
+              });
+              list.append(
+                '<li><img src="' + media_url + '" width="50"><br>' + 
+                item.title.rendered + ' ' + 
+                '</li>'
+              );
+            });
           }
         });
       }
@@ -46,7 +51,6 @@ get_header(); ?>
   // タスクプールをロード
   function load_task_pool(pool){
     $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task?filter[orderby]=rand&_embed&filter[nopaging]=true", function(data){
-      console.log(data);
       pool.empty();
       for(var i in data){
         $(data[i]._embedded['wp:featuredmedia']).each(function(index, element){
