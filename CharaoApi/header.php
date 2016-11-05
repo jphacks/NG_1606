@@ -12,3 +12,7 @@
 </style>
 </head>
 <body>
+
+  <div class="title-part">
+    <h1 class="app-title">CharaoApi</h1>
+  </div>
