@@ -204,11 +204,16 @@ a:hover {
   background-position: center;
 }
 
+.register-page .image-cover{
+  position: relative;
+}
+
 .register .title-part {
   width: 100%;
   margin: 0;
   padding: 0;
   background-color: rgb(245, 125, 139);
+  position: fixed;
 }
 
 .register .title-part .app-title {
@@ -254,13 +259,17 @@ legend {
 }
 
 #wpmem_login {
-  position: absolute;
-  top: 33%;
-  right: 8%;
   width: 410px;
-  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  -o-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
   padding: 5px;
-  background-color: rgb(245, 125, 139);
+  background-color: rgba(245, 125, 139, 0.6);
   border-radius: 10px;
 }
 
@@ -274,6 +283,8 @@ legend {
   margin: 0 auto;
   width: 180px;
   padding: 5px;
+  color: rgb(245, 125, 139);
+  background-color: #fff;
 }
 
 .div_text input[type=text], .div_text input[type=password] {
@@ -288,4 +299,19 @@ legend {
 
 .login-page .button_div input{
   margin-bottom: 20px;
+}
+
+.no-register-form-part #wpmem_reg{
+  position: absolute;
+  background-color: rgba(245, 125, 139, 0.6);
+  width: 410px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  -o-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  padding: 5px;
+  border-radius: 10px;
 }
