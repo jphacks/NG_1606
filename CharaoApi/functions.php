@@ -14,18 +14,8 @@ function create_post_type(){
     'menu_position' => 5,
     'show_in_rest' => 'true'
   ));
-  register_taxonomy(
-    'level', 'task', array(
-      'hierarchical' => false,
-      'update_count_callback' => '_update_post_term_count',
-      'label' => 'レベル',
-      'singular_label' => 'レベル',
-      'public' => true,
-      'show_ui' => true
-    )
-  );
-  // マイタスク (my_ask)
-  register_post_type('mt_task', array(
+  // マイタスク (my_task)
+  register_post_type('my_task', array(
     'labels' => array(
       'name' => __('マイタスク'),
       'singular_name' => __('マイタスク')
@@ -35,7 +25,7 @@ function create_post_type(){
     'show_in_rest' => 'true'
   ));
   register_taxonomy(
-    'level', 'my_task', array(
+    'level', array('task', 'my_task'), array(
       'hierarchical' => false,
       'update_count_callback' => '_update_post_term_count',
       'label' => 'レベル',
