@@ -17,12 +17,34 @@ get_header(); ?>
   </div>
 </div>
 <script>
-  $(function(){
-    console.log("jQuery move");
-  });
-  
-  // タスクをロード
-  function load_tasks(pool){
+  // マイタスクをロード
+  function load_task_list(list){
+    list.empty();
+    path = "<?php echo home_url('');?>" + '/wp-json/wp/v2/my_task?_embed';
+    $.ajax({type: 'GET', url: path, dataType: 'json'}).done(function(json, textStatus, request){
+      page_amount = request.getResponseHeader('X-WP-TotalPages');
+      page_amount = +page_amount; // キャスト
+      for(var p = 1; p < page_amount + 1; p++){
+        $.getJSON(path + "&page=" + p, function(data){
+          console.log(data);
+          if(data.length == 0){
+            console.log("break");
+            return;
+          }
+          for(var i in data){
+            list.append(
+              '<li> ' + 
+              data[i].title.rendered + ' ' + 
+              '</li>'
+            );
+          }
+        });
+      }
+    });
+  }
+
+  // タスクプールをロード
+  function load_task_pool(pool){
     $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task?filter[orderby]=rand&_embed&filter[nopaging]=true", function(data){
       console.log(data);
       pool.empty();
@@ -66,6 +88,7 @@ get_header(); ?>
     }).done( function ( response ) {
       item.parent().append(' <span class="text-success">タスクに登録しました</span>') 
       item.parent('li').remove();
+      load_task_list($('#task-list'));
       console.log( response );
     });
   }
@@ -78,10 +101,11 @@ get_header(); ?>
 
   // アクションフック
   $(document).ready(function(){
-    load_tasks($('#task-pool'));
+    load_task_pool($('#task-pool'));
+    load_task_list($('#task-list'));
   });
   $('.btn-reload-task').click(function(){
-    load_tasks($('#task-pool'));
+    load_task_pool($('#task-pool'));
   });
   $('.btn-doing-task').click(function(){
     console.log("item: ");
