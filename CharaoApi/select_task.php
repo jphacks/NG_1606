@@ -25,7 +25,7 @@ get_header(); ?>
     $.ajax({type: 'GET', url: path, dataType: 'json'}).done(function(json, textStatus, request){
       page_amount = request.getResponseHeader('X-WP-TotalPages');
       page_amount = +page_amount; // キャスト
-      for(var p = 1; p < 2; p++){
+      for(var p = 1; p < page_amount + 1; p++){
         $.getJSON(path + "&page=" + p, function(data){
           if(data.length == 0){
             return;
