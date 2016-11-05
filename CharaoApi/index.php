@@ -7,8 +7,8 @@
       </div>
 
       <div class="login-form-part">
-        <a href="http://localhost/wordpress/mypage"><div>ログイン</div></a>
-        <a href="http://localhost/wordpress/register"><div>新規登録</div></a>
+        <a href="<?php echo home_url('/')?>mypage"><div>ログイン</div></a>
+        <a href="<?php echo home_url('/')?>register"><div>新規登録</div></a>
       </div>
 
       <div class="bottom-part">
@@ -22,14 +22,13 @@
       console.log("jQuery move");
     });
   </script>
-  
+
   <script>
   $(document).ready(function () {
       var hsize = $(window).height();
       var pad_top = hsize / 4;
       $(".title-part").css("padding-top", pad_top + "px");
   });
-
   </script>
 
 <?php get_footer(); ?>
