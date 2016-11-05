@@ -22,7 +22,14 @@ get_header(); ?>
           media_url = element.source_url;
         });
         console.log(media_url);
-        $('#task-list').append('<li><img src="' + media_url + '" width="100"> ' + data[i].title.rendered + '</li>');
+        $('#task-list').append(
+          '<li><img src="' + media_url + '" width="100"> ' + 
+          data[i].title.rendered + ' ' + 
+          '<a href="javascript:void(0)" class="btn btn-success btn-doing-task">やる</a> ' + 
+          '<a href="javascript:void(0)" class="btn btn-danger btn-wont-task">やらない</a> ' + 
+          '</li>'
+        );
+
       }
     });
   }
