@@ -24,13 +24,6 @@ get_header(); ?>
     load_task_pool($('#task-pool'));
     load_task_list($('#task-list'));
   });
-  $('.btn-reload-task').click(function(){
-    load_task_pool($('#task-pool'));
-  });
-  $('.btn-doing-task').click(function(){
-    console.log("item: ");
-    add_my_task(this);
-  });
 </script>
 
 <?php get_footer(); ?>

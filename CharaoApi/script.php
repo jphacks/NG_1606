@@ -27,14 +27,15 @@ function load_task_table(table){
           $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task/" + data[i].title.rendered + "?_embed", function(item){
             // サムネイルの取得
             $(item._embedded['wp:featuredmedia']).each(function(index, element){
-              media_url = element.source_url;
+              media_url = element.media_details.sizes.thumbnail.source_url;
             });
             var is_checked = ""
             if($('tr[data-task_id="' + item.id + '"]').data('task_checked')){
               is_checked = "checked";
             }
+            
             // td の中身を append
-            $('tr[data-task_id="' + item.id + '"]').append(
+            $('tr[data-task_id="' + item.id + '"]').empty().append(
               '<td><img src="' + media_url + '" width="50"></td>' + 
               '<td class="image-title">' + item.title.rendered + '</td>' +
               '<td><input type="checkbox" data-task_id="' + item.id + '" class="checkbox" onclick="check_my_task($(this))"' + is_checked + '></td> ' +  
@@ -65,27 +66,30 @@ function load_task_list(list){
             checked_str = "true"
           }else{
             list.append('<li data-my_task_id="' + data[i].id + '" data-task_checked="' + checked_str + '" data-task_id="' + data[i].title.rendered + '"></li>');
-          }
-          // ID を用いてタスクプールから検索
-          $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task/" + data[i].title.rendered + "?_embed", function(item){
-            // サムネイルの取得
-            $(item._embedded['wp:featuredmedia']).each(function(index, element){
-              media_url = element.source_url;
+            
+            // ID を用いてタスクプールから検索
+            $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task/" + data[i].title.rendered + "?_embed", function(item){
+              // サムネイルの取得
+              console.log(item);
+              $(item._embedded['wp:featuredmedia']).each(function(index, element){
+                media_url = element.media_details.sizes.thumbnail.source_url;
+              });
+              var is_checked = ""
+              if($('li[data-task_id="' + item.id + '"]').data('task_checked')){
+                is_checked = "checked";
+              }
+              $('li[data-task_id="' + item.id + '"]').append(
+                '<img src="' + media_url + '" width="50"><br>' +
+                '<input type="checkbox" data-task_id="' + item.id + '" class="checkbox" onclick="check_my_task($(this))"' + is_checked + '> ' +  
+                '<div class="image-title">' + item.title.rendered + '</div>' +
+                ''
+              );
             });
-            var is_checked = ""
-            if($('li[data-task_id="' + item.id + '"]').data('task_checked')){
-              is_checked = "checked";
-            }
-            $('li[data-task_id="' + item.id + '"]').append(
-              '<img src="' + media_url + '" width="50"><br>' +
-              '<input type="checkbox" data-task_id="' + item.id + '" class="checkbox" onclick="check_my_task($(this))"' + is_checked + '> ' +  
-              '<div class="image-title">' + item.title.rendered + '</div>' +
-              ''
-            );
-          });
+          }
         }
       }).done(function(){
         delete_overlap_task();
+        check_task_amount();
       });
     }
   });
@@ -95,7 +99,7 @@ function load_task_list(list){
 function load_task_pool(pool){
   $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task?filter[orderby]=rand&_embed&filter[nopaging]=true", function(data){
     pool.empty();
-    pool.append('<li><div class="task-part text-center"><img src="http://placehold.jp/1080x1080.png"><div class="image-title"><p>タスクをこなしてきましょう</p></div></div></li>');
+    pool.append('<li id="task-warn"><div class="task-part text-center"><img src="<?=get_template_directory_uri()?>/images/task-warn.jpg"><div class="image-title"><p>タスクをこなしてきましょう</p></div></div></li>');
     for(var i in data){
       $(data[i]._embedded['wp:featuredmedia']).each(function(index, element){
         media_url = element.source_url;
@@ -120,7 +124,6 @@ function delete_overlap_task(){
     // console.log($(li).data('task_id'));
     $('a[data-task_id="' + $(li).data('task_id') + '"]')
       .parent('li').remove();
-    console.log($('#task-pool li').length);
   });
 }
 
@@ -142,11 +145,19 @@ function add_my_task(item){
       'status': 'publish'
     }
   }).done( function ( response ) {
-    item.parent().append(' <span class="text-success">タスクに登録しました</span>')
     item.parents('li').remove();
-    load_task_list($('#task-list'));
-    console.log( response );
+    $('#task-list').append('<li data-task_checkd="false" data-task_id="'+item.data('task_id')+'"><img src="' + item.next().next().children('img')[0].currentSrc + '" width="50"></li>');
+    delete_overlap_task();
+    check_task_amount();
   });
+  
+}
+function check_task_amount(){
+  console.log($('#task-list li').length);
+  if($('#task-list li').length >= 8){
+    $('#task-pool li').css('display', 'none');
+    $('#task-warn').css('display', 'block');
+  }  
 }
 // やらない関数
 function remove_my_task(item){

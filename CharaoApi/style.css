@@ -164,6 +164,7 @@ a:hover {
 }
 
 #task-list{
+  margin-bottom: 60px;
   text-align: center;
 }
 .select-task-page #task-list li {
