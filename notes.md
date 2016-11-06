@@ -35,7 +35,8 @@ Wordpress 4.6.1
 
 ### TROUBLE LIST
 
-- [ ] カスタム投稿タイプの posts\_per\_pages
-- [ ] カスタムフィールドのIDを追加
+- [x] カスタム投稿タイプの posts\_per\_pages
+- [x] カスタムフィールドのIDを追加
+- [ ] タスクの重複を解決する
 
 

@@ -3,7 +3,7 @@ var checked_str = "";
 
 function load_task_table(table){
   table.empty();
-  path = "<?php echo home_url('');?>" + '/wp-json/wp/v2/my_task?_embed';
+  path = "<?php echo home_url('');?>" + '/wp-json/wp/v2/my_task?filter[author]=<?=wp_get_current_user()->get('ID')?>&_embed';
   $.ajax({type: 'GET', url: path, dataType: 'json'}).done(function(json, textStatus, request){
     page_amount = request.getResponseHeader('X-WP-TotalPages');
     page_amount = +page_amount; // キャスト
@@ -49,7 +49,7 @@ function load_task_table(table){
 // マイタスクをロード
 function load_task_list(list){
   list.empty();
-  path = "<?php echo home_url('');?>" + '/wp-json/wp/v2/my_task?_embed';
+  path = "<?php echo home_url('');?>" + '/wp-json/wp/v2/my_task?filter[author]=<?=wp_get_current_user()->get('ID')?>&_embed';
   $.ajax({type: 'GET', url: path, dataType: 'json'}).done(function(json, textStatus, request){
     page_amount = request.getResponseHeader('X-WP-TotalPages');
     page_amount = +page_amount; // キャスト
@@ -84,6 +84,8 @@ function load_task_list(list){
             );
           });
         }
+      }).done(function(){
+        delete_overlap_task();
       });
     }
   });
@@ -108,6 +110,16 @@ function load_task_pool(pool){
       );
 
     }
+  });
+}
+
+function delete_overlap_task(){
+  // console.log("delete_overlap");
+  $('#task-list li').each(function(i, li){
+    // console.log($(li).data('task_id'));
+    $('a[data-task_id="' + $(li).data('task_id') + '"]')
+      .parent('li').remove();
+    console.log($('#task-pool li').length);
   });
 }
 
