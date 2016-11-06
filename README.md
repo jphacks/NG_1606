@@ -24,6 +24,7 @@
 
 ### 市場調査
 ![画像](http://staba.staba.jp/wp-content/uploads/2016/11/競合調査.png "サンプル")
+![画像](http://staba.staba.jp/wp-content/uploads/2016/11/3P分析.png "サンプル")
 
 
 ## 開発言語
