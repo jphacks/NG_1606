@@ -172,6 +172,7 @@ function check_my_task(item){
     }).done( function ( response ) {
       console.log( response );
     });
+    item.parents('tr').css('opacity', '0.25');
   }else{
     // unchecked
     $.ajax( {
