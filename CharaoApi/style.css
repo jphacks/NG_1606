@@ -163,6 +163,9 @@ a:hover {
   padding: 0;
 }
 
+#task-list{
+  text-align: center;
+}
 .select-task-page #task-list li {
   display: inline-block;
 }
@@ -171,12 +174,15 @@ a:hover {
   width: 80px;
   height: 80px;
   border-radius: 10px;
-  margin: 5 10px;
+  margin: 5 5px;
   padding: 0
 }
 
 .select-task-page #task-list .image-title {
   display: none;
+}
+.image-title p{
+  margin: 0px !important;
 }
 
  #task-list input[type="checkbox"] {
