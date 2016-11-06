@@ -254,7 +254,7 @@ legend {
   position: fixed;
 }
 
-.login-page .link-text {
+.link-text {
   display: none;
 }
 
@@ -293,6 +293,10 @@ legend {
   font-size: 15px;
 }
 
+input[type=text], input[type=email], input[type=password]{
+  color: #000000;
+}
+
 .login-page .button_div{
   padding-top: 10px;
 }
@@ -305,7 +309,7 @@ legend {
   position: absolute;
   background-color: rgba(245, 125, 139, 0.6);
   width: 410px;
-  top: 50%;
+  top: 55%;
   left: 50%;
   -webkit-transform: translate(-50%,-50%);
   -moz-transform: translate(-50%,-50%);
@@ -314,4 +318,37 @@ legend {
   transform: translate(-50%,-50%);
   padding: 5px;
   border-radius: 10px;
+}
+
+#wpmem_reg label{
+  padding-top: 10px;
+}
+
+.no-register-form-part input[type=submit] {
+  display: block;
+  margin: 20px auto;
+  width: 180px;
+  padding: 5px;
+  color: rgb(245, 125, 139);
+  background-color: #fff;
+}
+
+.no-register-form-part .req-text {
+  padding-bottom: 10px;
+}
+
+#wpmem_msg, .wpmem_msg {
+  display: none;
+}
+
+#wpmem_login label {
+  padding-top: 10px;
+}
+
+#wpmem_login .button_div {
+  margin-top: 10px;
+}
+
+.return-page {
+  padding-top: 10px;
 }
