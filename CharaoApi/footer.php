@@ -1,4 +1,4 @@
-<div class="btn-group btn-group-justified" role="group" aria-label="...">
+<div class="btn-group btn-group-justified" id="footer" role="group" aria-label="...">
   <div class="btn-group" role="group">
     <a href="<?=home_url('/')."select_task"?>" class="btn btn-default">ホーム</a>
   </div>

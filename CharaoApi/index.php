@@ -30,5 +30,3 @@
       $(".title-part").css("padding-top", pad_top + "px");
   });
   </script>
-
-<?php get_footer(); ?>
