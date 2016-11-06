@@ -299,6 +299,9 @@ input[type=text], input[type=email], input[type=password]{
   margin-bottom: 20px;
 }
 
+#task-table{
+  margin-bottom: 60px;
+}
 .no-register-form-part #wpmem_reg{
   position: absolute;
   background-color: rgba(245, 125, 139, 0.6);

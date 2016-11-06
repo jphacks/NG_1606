@@ -37,7 +37,7 @@ function load_task_table(table){
             // td の中身を append
             $('tr[data-task_id="' + item.id + '"]').empty().append(
               '<td><img src="' + media_url + '" width="50"></td>' + 
-              '<td class="image-title">' + item.title.rendered + '</td>' +
+              '<td class="image-title"><strong>' + item.title.rendered + '</strong><br><span class="text-mused">' + item.content.rendered + '</span></td>' +
               '<td><input type="checkbox" data-task_id="' + item.id + '" class="checkbox" onclick="check_my_task($(this))"' + is_checked + '></td> ' +  
               ''
             );
