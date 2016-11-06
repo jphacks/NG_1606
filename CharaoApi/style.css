@@ -367,16 +367,48 @@ input[type=text], input[type=email], input[type=password]{
 
 .logo-space {
   display: inline-block;
-  padding: 5px 0 5px 15px;
+  padding: 5px 0 5px 35px;
 }
 
 .footer-menu {
-  margin-right: 25px;
+  margin-right: 55px;
   color: #fff !important;
 }
 
-.footer-menu-box{
+.footer-menu-box {
   float: right;
   margin-top: 15px;
-  margin-right: 21px;
+}
+
+.select-button {
+  float: left;
+  width: 50%;
+  text-align: center;
+  padding: 20px 0;
+  border: 1px solid #fff;
+  background-color: rgb(245, 125, 139);
+  color: #fff !important;
+}
+
+#task-table td {
+  vertical-align: middle !important;
+}
+
+#task-table tr:last-child {
+  border-bottom: 1px solid #dddddd;
+}
+
+#task-table tr:first-child {
+  border-top: ;
+}
+
+#task-table .image-title{
+  margin-left: -30px;
+  font-size: 13px;
+}
+
+#task-table input[type=checkbox] {
+  transform: scale(1.1);
+  -moz-transform: scale(1.1);
+	-webkit-transform: scale(1.1);
 }

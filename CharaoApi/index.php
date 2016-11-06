@@ -7,7 +7,7 @@
       </div>
 
       <div class="login-form-part">
-        <a href="<?php echo home_url('/')?>mypage"><div>ログイン</div></a>
+        <a href="<?php echo home_url('/')?>select"><div>ログイン</div></a>
         <a href="<?php echo home_url('/')?>register"><div>新規登録</div></a>
       </div>
 
