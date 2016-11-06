@@ -1,9 +1,7 @@
 <?php /* Template Name: select_task */
 get_header(); ?>
+
 <div class="select-task-page">
-  <div class="title-part">
-    <h1 class="app-title">CharaoApi</h1>
-  </div>
   <!--
   <p>
     <a href="javascript:void(0)" class="btn btn-default btn-reload-task">タスクプールを更新</a>
@@ -17,6 +15,7 @@ get_header(); ?>
 </div>
 
 <?php include 'script.php'; ?>
+
 <script>
   // アクションフック
   $(document).ready(function(){
@@ -28,10 +27,8 @@ get_header(); ?>
   });
   $('.btn-doing-task').click(function(){
     console.log("item: ");
-
     add_my_task(this);
   });
-
 </script>
 
 <?php get_footer(); ?>

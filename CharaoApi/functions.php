@@ -68,7 +68,8 @@ function custom_area(){
   global $post;
 	echo 'タスクID<input type="text" name="task_id" value="'.get_post_meta($post->ID,'task_id',true).'"><br>';
   // echo '形状<input type="text" name="keijo" value="'.get_post_meta($post->ID,'keijo',true).'"><br>';
-}*/
+}
+*/
 
 /*投稿ボタンを押した際のデータ更新と保存*/
 function save_custom_postdata($post_id){

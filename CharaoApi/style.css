@@ -5,6 +5,7 @@
 }
 
 body {
+  position: relative;
   color: #333;
   font-family: Quicksand, 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 }
@@ -77,20 +78,6 @@ a:hover {
   padding: 0;
   color: #ffffff;
   font-size: 17px;
-}
-
-.select-task-page .title-part {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: rgb(245, 125, 139);
-}
-
-.select-task-page .title-part .app-title {
-  margin: 0;
-  padding: 5px 0 5px 20px;
-  color: #ffffff;
-  font-size: 30px;
 }
 
 .select-task-page #task-pool ul {
@@ -351,4 +338,10 @@ input[type=text], input[type=email], input[type=password]{
 
 .return-page {
   padding-top: 10px;
+}
+
+#footer{
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
 }
