@@ -2,11 +2,11 @@
 get_header(); ?>
 <div class="select-task-page">
 <div class="btn-group btn-group-justified" role="group" aria-label="...">
-  <div class="btn-group" role="group">
-    <a href="javascript:void(0)" class="btn btn-default" onclick="hide_done_task()">未完了</a>
+  <div class="" role="group">
+    <a href="javascript:void(0)" class="select-button" onclick="hide_done_task()">未完了のタスク</a>
   </div>
-  <div class="btn-group" role="group">
-    <a href="javascript:void(0)" class="btn btn-default" onclick="show_done_task()">すべて</a>
+  <div class="" role="group">
+    <a href="javascript:void(0)" class="select-button" onclick="show_done_task()">すべてのタスク</a>
   </div>
 </div>
   <!--
@@ -15,7 +15,7 @@ get_header(); ?>
   </p>
   -->
   <table id="task-table" class="table">
-    
+
   </table>
 </div>
 
