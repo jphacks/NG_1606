@@ -23,7 +23,7 @@
 モテるために必要な要素を徹底的にデータ化しました。
 
 ### 市場調査
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/oJVH5"><a href="//imgur.com/oJVH5"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+![画像](http://staba.staba.jp/wp-content/uploads/2016/11/競合調査.png "サンプル")
 
 
 ## 開発言語
