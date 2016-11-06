@@ -22,6 +22,10 @@
 ### 注力したこと
 モテるために必要な要素を徹底的にデータ化しました。
 
+### 市場調査
+<img src="http://imgur.com/a/oJVH5">
+
+
 ## 開発言語
 HTML, CSS, JavaScript, PHP
 
