@@ -84,6 +84,8 @@ function load_task_list(list){
             );
           });
         }
+      }).done(function(){
+        delete_overlap_task();
       });
     }
   });
@@ -108,6 +110,16 @@ function load_task_pool(pool){
       );
 
     }
+  });
+}
+
+function delete_overlap_task(){
+  // console.log("delete_overlap");
+  $('#task-list li').each(function(i, li){
+    // console.log($(li).data('task_id'));
+    $('a[data-task_id="' + $(li).data('task_id') + '"]')
+      .parent('li').remove();
+    console.log($('#task-pool li').length);
   });
 }
 
