@@ -63,12 +63,12 @@ function add_custom_inputbox() {
   add_meta_box( 'task_id','追加入力欄', 'custom_area', array('task', 'my_task'), 'normal' );
 }
 
-/*実際、管理画面に表示される内容*/
+/*実際、管理画面に表示される内容
 function custom_area(){
   global $post;
 	echo 'タスクID<input type="text" name="task_id" value="'.get_post_meta($post->ID,'task_id',true).'"><br>';
   // echo '形状<input type="text" name="keijo" value="'.get_post_meta($post->ID,'keijo',true).'"><br>';
-}
+}*/
 
 /*投稿ボタンを押した際のデータ更新と保存*/
 function save_custom_postdata($post_id){
@@ -83,7 +83,7 @@ function save_custom_postdata($post_id){
 	}elseif($task_id == ""){
 		delete_post_meta($post_id, 'task_id',get_post_meta($post_id,'task_id',true));
 	}
-                                  	
+
   // if(isset($_POST['keijo'])){
   //   $keijo=$_POST['keijo'];
   // }else{

@@ -16,7 +16,6 @@ get_header(); ?>
   </div>
 </div>
 
-
 <?php include 'script.php'; ?>
 <script>
   // アクションフック

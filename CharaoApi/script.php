@@ -77,7 +77,7 @@ function load_task_list(list){
               is_checked = "checked";
             }
             $('li[data-task_id="' + item.id + '"]').append(
-              '<img src="' + media_url + '" width="50"><br>' + 
+              '<img src="' + media_url + '" width="50"><br>' +
               '<input type="checkbox" data-task_id="' + item.id + '" class="checkbox" onclick="check_my_task($(this))"' + is_checked + '> ' +  
               '<div class="image-title">' + item.title.rendered + '</div>' +
               ''
@@ -98,12 +98,13 @@ function load_task_pool(pool){
         media_url = element.source_url;
       });
       pool.append(
-        '<li><a href="javascript:void(0)" class="btn btn-success btn-doing-task" onclick="add_my_task($(this));"' +
+        '<li><a href="javascript:void(0)" class="btn btn-doing-task" onclick="add_my_task($(this));"' +
         'data-post_title="' + data[i].title.rendered + '" ' +
         'data-task_id="' + data[i].id + '" ' +
-        'data-post_content="' + data[i].content.rendered + '">やる</a> ' +
-        '<a href="javascript:void(0)" class="btn btn-danger btn-wont-task" onclick="remove_my_task($(this));">やらない</a> ' + '<div class="task-part text-center"><img src=' + media_url + ' width="100">' + '<div class="image-title">' +
-        '<p>' + data[i].title.rendered + '</p>' + '</div>' + ' ' + '</div>' + '</li>'
+        'data-post_content="' + data[i].content.rendered + '"><span class="good"></span></a> ' +
+        '<a href="javascript:void(0)" class="btn btn-wont-task" onclick="remove_my_task($(this));"><span class="bad"></span></a>'
+        + '<div class="task-part text-center"><img src=' + media_url + ' width="100">' + '<div class="image-title">' +
+        '<p>' + data[i].title.rendered + '</p>' + '</div>' + '</div>' + '</li>'
       );
 
     }
