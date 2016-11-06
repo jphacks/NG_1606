@@ -163,6 +163,9 @@ a:hover {
   padding: 0;
 }
 
+#task-list{
+  text-align: center;
+}
 .select-task-page #task-list li {
   display: inline-block;
 }
@@ -171,12 +174,15 @@ a:hover {
   width: 80px;
   height: 80px;
   border-radius: 10px;
-  margin: 5 10px;
+  margin: 5 5px;
   padding: 0
 }
 
 .select-task-page #task-list .image-title {
   display: none;
+}
+.image-title p{
+  margin: 0px !important;
 }
 
  #task-list input[type="checkbox"] {
@@ -341,7 +347,36 @@ input[type=text], input[type=email], input[type=password]{
 }
 
 #footer{
+  background-color: rgb(245, 125, 139);
+  border: 1px solid rgb(245, 125, 139);
+  height: 40px;
   position: fixed;
   bottom: 0px;
   left: 0px;
+}
+
+.footer-logo {
+  height: 40px;
+  width: 40px;
+  background-image: url("images/logo-01.png");
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+}
+
+.logo-space {
+  display: inline-block;
+  padding: 5px 0 5px 15px;
+}
+
+.footer-menu {
+  margin-right: 25px;
+  color: #fff !important;
+}
+
+.footer-menu-box{
+  float: right;
+  margin-top: 15px;
+  margin-right: 21px;
 }

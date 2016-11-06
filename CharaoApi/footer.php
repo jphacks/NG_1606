@@ -1,13 +1,10 @@
 <div class="btn-group btn-group-justified" id="footer" role="group" aria-label="...">
-  <div class="btn-group" role="group">
-    <a href="<?=home_url('/')."select_task"?>" class="btn btn-default">ホーム</a>
-  </div>
-  <div class="btn-group" role="group">
-    <a href="<?=home_url('/').""?>" class="btn btn-default">今日のタスク</a>
-  </div>
-  <div class="btn-group" role="group">
-    <a href="<?=home_url('/')."task_table"?>" class="btn btn-default">タスクリスト</a>
-  </div>
+    <a href="<?=home_url('/')?>" class="logo-space"><div class="footer-logo"></div></a>
+    <div class="footer-menu-box">
+      <a href="<?=home_url('/')?>" class="footer-menu">ホーム</a>
+      <a href="<?=home_url('/')?>" class="footer-menu">今日のタスク</a>
+      <a href="<?=home_url('/')."task_table"?>" class="footer-menu">タスクリスト</a>
+    </div>
 </div>
 </body>
 </html>

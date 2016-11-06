@@ -7,7 +7,9 @@ get_header(); ?>
     <a href="javascript:void(0)" class="btn btn-default btn-reload-task">タスクプールを更新</a>
   </p>
   -->
-  <ul id="task-pool"></ul>
+
+  <ul id="task-pool">
+  </ul>
   <div style="clear: both; width: 1px; height: 1px;"></div>
   <div class="task-list-box">
     <ul id="task-list"></ul>

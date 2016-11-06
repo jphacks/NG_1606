@@ -63,9 +63,9 @@ function load_task_list(list){
           checked_str = "false";
           if(task_state.match(/done/)){
             checked_str = "true"
+          }else{
+            list.append('<li data-my_task_id="' + data[i].id + '" data-task_checked="' + checked_str + '" data-task_id="' + data[i].title.rendered + '"></li>');
           }
-          list.append('<li data-my_task_id="' + data[i].id + '" data-task_checked="' + checked_str + '" data-task_id="' + data[i].title.rendered + '"></li>');
-
           // ID を用いてタスクプールから検索
           $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task/" + data[i].title.rendered + "?_embed", function(item){
             // サムネイルの取得
@@ -95,11 +95,12 @@ function load_task_list(list){
 function load_task_pool(pool){
   $.getJSON("<?php echo home_url('/');?>wp-json/wp/v2/task?filter[orderby]=rand&_embed&filter[nopaging]=true", function(data){
     pool.empty();
+    pool.append('<li><div class="task-part text-center"><img src="http://placehold.jp/1080x1080.png"><div class="image-title"><p>タスクをこなしてきましょう</p></div></div></li>');
     for(var i in data){
       $(data[i]._embedded['wp:featuredmedia']).each(function(index, element){
         media_url = element.source_url;
       });
-      pool.append(
+      pool.prepend(
         '<li><a href="javascript:void(0)" class="btn btn-doing-task" onclick="add_my_task($(this));"' +
         'data-post_title="' + data[i].title.rendered + '" ' +
         'data-task_id="' + data[i].id + '" ' +
@@ -171,6 +172,7 @@ function check_my_task(item){
     }).done( function ( response ) {
       console.log( response );
     });
+    item.parents('tr').css('opacity', '0.25');
   }else{
     // unchecked
     $.ajax( {
